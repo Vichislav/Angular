@@ -1,0 +1,39 @@
+
+<!--*ngIf="expression; else: elseCase" если expression = true отрисовываем этот div,
+ если нет то шаблон с индексом elseCase  -->
+<div *ngIf="expression; else: elseCase">I am okay</div>
+<!--#elseCase - это как бы индекс этого шаблона, на который мы в последствии можем сослаться см выше -->
+<ng-template #elseCase>
+  <div>I am bad</div>
+</ng-template>
+
+<button (click)="expression = !expression">Toggle</button>
+<hr>
+<button (click)="generateUser()">Generate User</button>
+
+<!--<ul *ngIf="deepObject && deepObject.user"> тоже самое что и <ul *ngIf="deepObject?.user as user">-->
+<!--"deepObject?.user as user" (как юзер) позволяет далее не писать вложенную констр-ию
+ (сохраняем в лок. переменную) -->
+<!--deepObject.user.surname а писать user.surname-->
+<ul *ngIf="deepObject?.user as user">
+  <li>Name is: {{user.name}}</li>
+  <li>Surname is: {{user.surname}}</li>
+</ul>
+<hr>
+<ul>
+<!--  запись внутри ngFor - берем каждого user из массива users-->
+  <!--  запись index as i - для вывода индекса, связываем индекс с переменной i и ее уже выводим -->
+  <!--  запись trackBy: trackBy - позволяет связпть элемент списка с id user -->
+  <li *ngFor="let user of users; index as i; trackBy: trackBy">{{i}} {{user.name}}</li>
+</ul>
+<hr>
+<ul>
+  <!--  в [ngSwitch] попадает значение "user.template" и в зависимости от его значения отрисовывается требуемое -->
+  <!--  *ngSwitchCase="'bold'" если значение  user.template = 'bold' , значит рисуем этот в таком шаблоне и т.д.-->
+  <!--  *ngSwitchDefault для случая, когда значение  user.template не совпадет ни с чем-->
+  <li *ngFor="let user of users; index as i; trackBy: trackBy" [ngSwitch]="user.template">{{i}} {{user.name}}
+    <p *ngSwitchCase="'bold'"><b>{{user.name}}</b></p>
+    <p *ngSwitchCase="'italic'"><i>{{user.name}}</i></p>
+    <p *ngSwitchDefault><span>{{user.name}}</span></p>
+  </li>
+</ul>
