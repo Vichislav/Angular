@@ -9,5 +9,4 @@ export class FooComponent {
 
   @Input()
   template?: TemplateRef<{ $implicit: number }>;
-
 }
