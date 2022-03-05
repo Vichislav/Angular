@@ -1,9 +1,26 @@
-<app-foo [template]="refapp">
-  <h3 class="header">Header</h3>
-  <p class="body">Body</p>
-  <footer class="footer">Footer</footer>
-</app-foo>
+<div>
+  <button (click)="menu1.show()">
+    Open menu
+  </button>
+  <app-menu #menu1>
+    <p>From App Component One</p>
+  </app-menu>
+</div>
 
-<ng-template #refapp let-element>
-  <p>{{element}} I am from App component</p>
-</ng-template>
+<div>
+  <button (click)="menu2.show()">
+    Open menu
+  </button>
+  <app-menu #menu2>
+    <p>From App Componen Two</p>
+  </app-menu>
+</div>
+
+<div>
+  <button (click)="menu3.show()">
+    Open menu
+  </button>
+  <app-menu #menu3>
+    <p>From App Component Three</p>
+  </app-menu>
+</div>
